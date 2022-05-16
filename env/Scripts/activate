@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\sumit\workspace\shopigy-challenge-may2022\env"
+VIRTUAL_ENV="C:\Users\sumit\workspace\shopify-challenge-may2022\env"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
