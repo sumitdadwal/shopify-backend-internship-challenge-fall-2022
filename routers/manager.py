@@ -1,16 +1,10 @@
-from multiprocessing import synchronize
 from fastapi.exceptions import HTTPException
-from fastapi import APIRouter, Depends, status, UploadFile, File, Response
-# from routers.schemas import ProductBase, ProductDisplay
+from fastapi import APIRouter, Depends, status, Response
 from routers import schemas
 from sqlalchemy.orm.session import Session
 from db.database import get_db
-from db.db_product import new_product
 from typing import List, Optional
 from db.models import Manager
-import string
-import random
-import shutil
 
 router = APIRouter(
     prefix='/manager',

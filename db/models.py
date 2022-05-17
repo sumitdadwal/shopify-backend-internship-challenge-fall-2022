@@ -1,13 +1,9 @@
-import email
-from enum import unique
 from xmlrpc.client import DateTime
-import pydantic
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.expression import null, text
 from sqlalchemy.sql.schema import ForeignKey
-from sqlalchemy.sql.sqltypes import TIMESTAMP, Boolean
 from .database import Base
-from sqlalchemy import Column, Integer, String, Boolean, DateTime
+from sqlalchemy import Column, Integer, String, DateTime
 
 class Product(Base):
     __tablename__ = 'product'
