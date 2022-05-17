@@ -5,6 +5,7 @@ from sqlalchemy.orm.session import Session
 from db.database import get_db
 from typing import List, Optional
 from db.models import Manager
+import datetime
 
 router = APIRouter(
     prefix='/manager',
@@ -13,7 +14,17 @@ router = APIRouter(
 
 @router.post('/create', status_code=status.HTTP_201_CREATED, response_model=schemas.ManagerDisplay)
 def create_manager(request: schemas.ManagerBase, db: Session = Depends(get_db)):
-    new_manager = Manager(**request.dict())
+    new_manager = Manager(
+        first_name = request.first_name,
+        last_name = request.last_name,
+        manager_email = request.manager_email,
+        manager_phone = request.manager_phone,
+        created_at = datetime.datetime.now()
+    )
+
+    if new_manager.first_name == "" and new_manager.last_name == "":
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Cannot leave Manager Name Empty")
+
     db.add(new_manager)
     db.commit()
     db.refresh(new_manager)
@@ -27,9 +38,9 @@ def get_manager_by_id(id: int, db: Session = Depends(get_db)):
     
     return manager
 
-@router.get('/all', response_model=List[schemas.ManagerDisplay])
-def get_all_managers(db: Session = Depends(get_db), limit: int = 10, skip: int = 0, search_name: Optional[str]= '', search_email: Optional[str]= ''):
-    managers = db.query(Manager).group_by(Manager.manager_id).filter(Manager.manager_name.contains(search_name)).filter(Manager.manager_email.contains(search_email)).limit(limit).offset(skip).all()
+@router.get('/all/', response_model=List[schemas.ManagerDisplay])
+def get_all_managers(db: Session = Depends(get_db), limit: int = 10, skip: int = 0, search_first_name: Optional[str]= '', search_last_name: Optional[str]= '', search_email: Optional[str]= ''):
+    managers = db.query(Manager).group_by(Manager.manager_id).filter(Manager.first_name.contains(search_first_name)).filter(Manager.last_name.contains(search_last_name)).filter(Manager.manager_email.contains(search_email)).limit(limit).offset(skip).all()
     return managers
 
 @router.delete('/delete/{id}', status_code=status.HTTP_204_NO_CONTENT)

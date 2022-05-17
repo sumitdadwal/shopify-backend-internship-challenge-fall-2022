@@ -1,9 +1,11 @@
+from db.models import Manager
 from fastapi import APIRouter, Depends, status, HTTPException
 from routers.schemas import WarehouseBase, WarehouseDisplay
 from sqlalchemy.orm.session import Session
 from db.database import get_db
 from db.models import Warehouse
 from typing import List, Optional
+import datetime
 
 router = APIRouter(
     prefix='/warehouse',
@@ -16,8 +18,22 @@ def create_warehouse(request: WarehouseBase, db: Session = Depends(get_db)):
         warehouse_name = request.warehouse_name,
         warehouse_address = request.warehouse_address,
         type = request.type,
-        manager_id = request.manager_id
+        manager_id = request.manager_id,
+        created_at = datetime.datetime.now()
     )
+    if new_warehouse.manager_id == 0:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail='Please assign a valid Manager ID')
+
+    if new_warehouse.warehouse_name == "":
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Invalid Warehouse Name")
+    if new_warehouse.warehouse_address == "":
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Invalid Warehouse Address")
+    if new_warehouse.type == "":
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Invalid Warehouse Type")
+
+    # if Warehouse.manager_id != Manager.manager_id:
+    #     raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail='Please assign a valid Manager ID')
+
     db.add(new_warehouse)
     db.commit()
     db.refresh(new_warehouse)

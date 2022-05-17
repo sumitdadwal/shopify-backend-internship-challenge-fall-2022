@@ -28,11 +28,17 @@ def create_product(request: schemas.ProductBase, db: Session = Depends(get_db)):
         unit_price = request.unit_price,
         image_url = request.image_url,
         image_url_type = request.image_url_type,
-        timestamp = datetime.datetime.now(),
+        created_at = datetime.datetime.now(),
         warehouse_id = request.warehouse_id
     )
     if not request.image_url_type in image_url_types:
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Parameter image_url_type can only take values 'absolute' or 'relative'.")
+
+    if product.product_name == "":
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Invalid Product Name")
+    if product.product_description == "":
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Invalid Product Description")
+
     db.add(product)
     db.commit()
     db.refresh(product)

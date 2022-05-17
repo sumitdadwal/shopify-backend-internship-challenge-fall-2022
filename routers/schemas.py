@@ -1,15 +1,18 @@
 from datetime import datetime
 from pydantic import BaseModel, EmailStr
-
+from typing import Optional
 
 
 class ManagerBase(BaseModel):
-    manager_name: str
+    first_name: str
+    last_name: str
     manager_email: EmailStr
     manager_phone: int
 
 class ManagerDisplay(ManagerBase):
     manager_id: int
+    created_at: datetime
+
     class Config:
         orm_mode = True
 
@@ -29,7 +32,10 @@ class WarehouseDisplay(BaseModel):
     warehouse_id: int
     warehouse_name: str
     warehouse_address: str
-    manager: ManagerOut
+    type: str
+    created_at: datetime
+    manager: Optional[ManagerOut]
+    
 
     class Config:
         orm_mode = True
@@ -50,6 +56,7 @@ class WarehouseOut(BaseModel):
     type: str
     warehouse_id: int
     manager_id: int
+    created_at: datetime
 
     class Config:
         orm_mode = True
@@ -57,8 +64,8 @@ class WarehouseOut(BaseModel):
 
 class ProductDisplay(ProductBase):
     product_id: int
-    timestamp: datetime
-    warehouse: WarehouseOut
+    created_at: datetime
+    warehouse: Optional[WarehouseOut]
 
     class Config():
         orm_mode = True
