@@ -13,37 +13,35 @@ class Product(Base):
     __tablename__ = 'product'
 
     product_id = Column(Integer, primary_key=True, index=True)
-    product_name = Column(String)
-    product_count = Column(Integer)
-    product_description = Column(String)
-    unit_price = Column(Integer)
+    product_name = Column(String, nullable=False)
+    product_count = Column(Integer, nullable=False)
+    product_description = Column(String, nullable=False)
+    unit_price = Column(Integer, nullable=False)
     image_url = Column(String)
     image_url_type = Column(String)
     timestamp = Column(DateTime)
-    warehouse_id = Column(Integer, ForeignKey('warehouse.warehouse_id'))
+    warehouse_id = Column(Integer, ForeignKey('warehouse.warehouse_id', ondelete='CASCADE'))
     warehouse = relationship('Warehouse', back_populates='items')
 
 
-# class Config:
-#     arbitrary_types_allowed = True
-
-# @pydantic.dataclasses.dataclass(config=Config)
 class Warehouse(Base):
     __tablename__='warehouse'
 
     warehouse_id = Column(Integer, primary_key=True, index=True)
-    warehouse_name = Column(String)
-    warehouse_address = Column(String, unique=True)
-    type = Column(String)
+    warehouse_name = Column(String, nullable=False)
+    warehouse_address = Column(String, unique=True, nullable=False)
+    type = Column(String, nullable=False)
     items = relationship('Product', back_populates='warehouse')
 
     manager_id = Column(Integer, ForeignKey('manager.manager_id'))
-    manager = relationship('Manager', back_populates='warehouse')
+    manager = relationship('Manager', back_populates='warehouses')
 
 class Manager(Base):
     __tablename__='manager'
 
     manager_id = Column(Integer, primary_key=True, index=True)
-    manager_name = Column(String)
-    manager_email = Column(String, unique=True)
-    warehouse = relationship('Warehouse', back_populates='manager')
+    manager_name = Column(String, nullable=False)
+    manager_email = Column(String, unique=True, nullable=False)
+    manager_phone = Column(Integer, nullable=False)
+    
+    warehouses = relationship('Warehouse', back_populates='manager')

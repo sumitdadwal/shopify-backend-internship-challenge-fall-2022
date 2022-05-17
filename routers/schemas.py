@@ -8,6 +8,7 @@ from typing import List
 class ManagerBase(BaseModel):
     manager_name: str
     manager_email: EmailStr
+    manager_phone: int
 
 class ManagerDisplay(ManagerBase):
     manager_id: int
@@ -20,11 +21,18 @@ class WarehouseBase(BaseModel):
     type: str
     manager_id: int
 
-    
+# for Warehouse Dispaly
+class ManagerOut(ManagerDisplay):
 
-class WarehouseDisplay(WarehouseBase):
+    class Config:
+        orm_mode = True
+
+class WarehouseDisplay(BaseModel):
     warehouse_id: int
-    
+    warehouse_name: str
+    warehouse_address: str
+    manager: ManagerOut
+
     class Config:
         orm_mode = True
 
@@ -52,7 +60,6 @@ class WarehouseOut(BaseModel):
 class ProductDisplay(ProductBase):
     product_id: int
     timestamp: datetime
-    warehouse_id: int
     warehouse: WarehouseOut
 
     class Config():

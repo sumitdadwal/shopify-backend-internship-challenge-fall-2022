@@ -17,7 +17,7 @@ router = APIRouter(
     tags=['manager']
 )
 
-@router.post('', status_code=status.HTTP_201_CREATED, response_model=schemas.ManagerDisplay)
+@router.post('/create', status_code=status.HTTP_201_CREATED, response_model=schemas.ManagerDisplay)
 def create_manager(request: schemas.ManagerBase, db: Session = Depends(get_db)):
     new_manager = Manager(**request.dict())
     db.add(new_manager)
@@ -33,8 +33,8 @@ def get_manager_by_id(id: int, db: Session = Depends(get_db)):
     
     return manager
 
-@router.get('/all/', response_model=List[schemas.ManagerDisplay])
-def get_managers(db: Session = Depends(get_db), limit: int = 10, skip: int = 0, search_name: Optional[str]= '', search_email: Optional[str]= ''):
+@router.get('/all', response_model=List[schemas.ManagerDisplay])
+def get_all_managers(db: Session = Depends(get_db), limit: int = 10, skip: int = 0, search_name: Optional[str]= '', search_email: Optional[str]= ''):
     managers = db.query(Manager).group_by(Manager.manager_id).filter(Manager.manager_name.contains(search_name)).filter(Manager.manager_email.contains(search_email)).limit(limit).offset(skip).all()
     return managers
 

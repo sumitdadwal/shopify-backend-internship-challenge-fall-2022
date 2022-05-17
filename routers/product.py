@@ -40,8 +40,8 @@ def create_product(request: schemas.ProductBase, db: Session = Depends(get_db)):
     db.refresh(product)
     return product
 
-@router.get('', response_model=List[schemas.ProductDisplay])
-def get_products(db: Session = Depends(get_db), limit: int = 10, skip: int = 0, search_name: Optional[str]='', search_description: Optional[str]='', search_count: Optional[int]='', search_warehouseID: Optional[int]='', search_unit_price: Optional[int]=''):
+@router.get('/all', response_model=List[schemas.ProductDisplay])
+def get_all_products(db: Session = Depends(get_db), limit: int = 10, skip: int = 0, search_name: Optional[str]='', search_description: Optional[str]='', search_count: Optional[int]='', search_warehouseID: Optional[int]='', search_unit_price: Optional[int]=''):
     all_products = db.query(Product).group_by(Product.product_id).filter(Product.product_name.contains(search_name)).filter(Product.product_description.contains(search_description)).filter(Product.product_count.contains(search_count)).filter(Product.warehouse_id.contains(search_warehouseID)).filter(Product.unit_price.contains(search_unit_price)).limit(limit).offset(skip).all()
     return all_products
 
