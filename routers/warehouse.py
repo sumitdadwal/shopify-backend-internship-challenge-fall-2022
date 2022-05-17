@@ -35,6 +35,19 @@ def get_warehouse_by_id(id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
     return warehouse
 
+
+@router.put('/update/{id}', response_model=WarehouseDisplay)
+def update_warehouse(id:int, request: WarehouseBase, db: Session = Depends(get_db)):
+    get_warehouse = db.query(Warehouse).filter(Warehouse.warehouse_id == id)
+    updated_warehosue = get_warehouse.first()
+
+    if updated_warehosue == None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Warehouse with ID {id} does not exist.')
+    get_warehouse.update(request.dict(), synchronize_session=False)
+    db.commit()
+    return get_warehouse.first()
+
+
 @router.delete('/delete/{id}', status_code=status.HTTP_204_NO_CONTENT)
 def delete_warehouse(id: int, db: Session = Depends(get_db)):
     get_warehouse = db.query(Warehouse).filter(Warehouse.warehouse_id == id)

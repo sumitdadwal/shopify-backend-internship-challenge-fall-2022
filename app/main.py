@@ -3,7 +3,6 @@ from db import models
 from db.database import engine
 from routers import warehouse, product, manager
 from fastapi.staticfiles import StaticFiles
-# from auth import authentication
 from fastapi.middleware.cors import CORSMiddleware
 
 models.Base.metadata.create_all(engine)

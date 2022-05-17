@@ -75,13 +75,13 @@ def upload_image(image: UploadFile = File(...)):
     return {'filename': path}
 
 @router.put('/update/{id}', response_model=schemas.ProductDisplay)
-def update_product(id: int, product: schemas.ProductBase, db: Session = Depends(get_db)):
+def update_product(id: int, request: schemas.ProductBase, db: Session = Depends(get_db)):
     get_product = db.query(Product).filter(Product.product_id == id)
     updated_product = get_product.first()
     if updated_product == None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Product with ID {id} does not exist.')
 
-    get_product.update(product.dict(), synchronize_session=False)
+    get_product.update(request.dict(), synchronize_session=False)
     db.commit()
     return get_product.first()
 
