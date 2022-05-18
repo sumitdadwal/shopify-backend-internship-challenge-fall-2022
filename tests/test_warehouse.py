@@ -33,15 +33,9 @@ def test_get_all_warehouses(client, test_warehouses):
 
 def test_get_warehouse_by_id(client, test_warehouses):
     res = client.get(f"/warehouse/1")
-
-    assert res.status_code == 200
-   
+    assert res.status_code == 200 
     warehouse = schemas.WarehouseDisplay(**res.json())
-    # print(warehouse)
-    # assert warehouse.warehouse_name == test_warehouses[0].warehouse_name
-    # assert warehouse.warehouse_address == test_warehouses[0].warehouse_address
-    # assert warehouse.type == test_warehouses[0].type
-    # assert warehouse.manager_id == test_warehouses[0].manager_id
+
 
 def test_get_warehouse_with_non_exist_id(client, test_warehouses):
     res = client.get('/warehouse/8888')
