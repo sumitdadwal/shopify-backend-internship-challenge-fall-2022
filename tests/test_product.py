@@ -36,6 +36,23 @@ def test_for_wrong_image_url_type(client):
     res = client.post("/product/create", json={"product_name": "Product Name", "product_description": "This is an awesome product", "product_count": 100, "unit_price": 50, "image_url": "https://image.com", "image_url_type" : "completeUrl", "warehouse_id": 1})
     assert res.status_code == 422
 
+@pytest.mark.parametrize("product_name, product_description, product_count, unit_price, image_url, image_url_type, warehouse_id", [
+    ("AwesomeProduct", "This is an awesome product", 100, 50, "/image.jpg", "relative", 1),
+    ("AwesomeProduct2", "This is the second awesome product", 100, 50, "/image2.jpg", "relative", 2),
+    ("AwesomeProduct3", "This is the third awesome product", 100, 50, "/image3.jpg", "relative", 3)
+])
+def test_create_products_for_reltive_image_url_type(client, test_products, product_name, product_description, product_count, unit_price, image_url, image_url_type, warehouse_id):
+    res = client.post("/product/create", json={"product_name": product_name, "product_description": product_description, "product_count": product_count, "unit_price": unit_price, "image_url": image_url, "image_url_type": image_url_type, "warehouse_id": warehouse_id})
+
+    created_products = schemas.ProductBase(**res.json())
+    assert created_products.product_name == product_name
+    assert created_products.product_description == product_description
+    assert created_products.product_count == product_count
+    assert created_products.unit_price == unit_price
+    assert created_products.image_url == image_url
+    assert created_products.image_url_type == image_url_type
+    assert created_products.warehouse_id == warehouse_id
+
 def test_get_all_products(client, test_products):
     res = client.get("/product/all")
     assert res.status_code == 200
