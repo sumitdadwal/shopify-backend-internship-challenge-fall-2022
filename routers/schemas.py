@@ -20,7 +20,7 @@ class WarehouseBase(BaseModel):
     warehouse_name: str
     warehouse_address: str
     type: str
-    manager_id: int
+    manager_id: Optional[int]
 
 # for Warehouse Dispaly
 class ManagerOut(ManagerDisplay):

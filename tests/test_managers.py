@@ -55,7 +55,7 @@ def test_delete_manager(client, test_managers):
     assert res.status_code == 204
 
 def test_delete_manager_non_exist(client, test_managers):
-    res = client.delete(f"manager/delete/88888")
+    res = client.delete(f"/manager/delete/88888")
     assert res.status_code == 404
 
 def test_update_manager(client, test_managers):

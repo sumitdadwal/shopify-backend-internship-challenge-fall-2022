@@ -82,26 +82,26 @@ def test_managers(session):
 
 
 @pytest.fixture
-def test_warehouses(test_managers, session):
+def test_warehouses(session):
     warehouse_data = [{
         "warehouse_name": "Warehouse1",
         "warehouse_address": "123 king st",
         "type": "Electronics",
-        "manager_id": test_managers[0].manager_id,
+        "manager_id": 1,
         "created_at": datetime.now()
     },
     {
         "warehouse_name": "Warehouse2",
         "warehouse_address": "123 Queen st",
         "type": "Clothing",
-        "manager_id": test_managers[0].manager_id,
+        "manager_id": 2,
         "created_at": datetime.now()
     },
     {
         "warehouse_name": "Warehouse3",
         "warehouse_address": "123 Bay st",
         "type": "Computer Parts",
-        "manager_id": test_managers[2].manager_id,
+        "manager_id": 3,
         "created_at": datetime.now()
     }]
 
