@@ -52,7 +52,7 @@ def test_get_manager_by_id(client, test_managers):
 
 
 def test_delete_manager(client, test_managers):
-    res = client.delete(f"manager/delete/{test_managers[0].manager_id}")
+    res = client.delete(f"/manager/delete/{test_managers[0].manager_id}")
     assert res.status_code == 204
 
 def test_delete_manager_non_exist(client, test_managers):
@@ -85,7 +85,7 @@ def test_update_manager_non_exist(client, test_managers):
     }
     
 
-    res = client.put(f"manager/update/88888", json=data)
+    res = client.put(f"/manager/update/88888", json=data)
 
     assert res.status_code == 404    
 

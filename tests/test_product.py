@@ -1,4 +1,5 @@
 from itertools import product
+import json
 from math import prod
 from routers import schemas
 import pytest
@@ -78,6 +79,45 @@ def test_get_all_products_with_search(client):
     res = client.get("/product/all?limit=1&skip=0&search_name=dc&search_description=xs&search_warehouseID=500&search_unit_price=55")
     assert res.status_code == 200
 
+def test_update_product(client, test_products):
+    data = {
+        "product_name": "Test Product",
+        "product_description": "This is a test Product",
+        "product_count": 200,
+        "unit_price": 80,
+        "image_url": "/image/image.jpg",
+        "image_url_type": "relative",
+        "warehouse_id": 2
+    }
+    res = client.put(f'/product/update/{test_products[0].product_id}', json=data)
+    updated_product = schemas.ProductBase(**res.json())
+    assert res.status_code == 200
+    assert updated_product.product_name == data["product_name"]
+    assert updated_product.product_description == data["product_description"]
+    assert updated_product.product_count == data["product_count"]
+    assert updated_product.unit_price == data["unit_price"]
+    assert updated_product.image_url == data["image_url"]
+    assert updated_product.image_url_type == data["image_url_type"]
+    assert updated_product.warehouse_id == data["warehouse_id"]
 
+def test_update_product_non_exist(client, test_products):
+    data = {
+        "product_name": "Test Product",
+        "product_description": "This is a test Product",
+        "product_count": 200,
+        "unit_price": 80,
+        "image_url": "/image/image.jpg",
+        "image_url_type": "relative",
+        "warehouse_id": 2
+    }
 
+    res = client.put('/product/update/8888', json=data)
+    assert res.status_code == 404
 
+def test_product_delete(client, test_products):
+    res = client.delete(f"/product/delete/{test_products[0].product_id}")
+    assert res.status_code == 204
+
+def test_delete_product_non_exist(client, test_managers):
+    res = client.delete(f"/product/delete/88888")
+    assert res.status_code == 404
