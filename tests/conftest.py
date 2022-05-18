@@ -120,6 +120,51 @@ def test_warehouses(session):
     warehouses = session.query(models.Warehouse).all()
     return 
 
+@pytest.fixture
+def test_products(session):
+    product_data = [{
+        "product_name": "TestProduct1",
+        "product_description": "This Product is for testing purposes.",
+        "product_count": 100,
+        "unit_price": 50,
+        "image_url": "https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8Zm9jdXN8ZW58MHx8MHx8&w=1000&q=80",
+        "image_url_type": "absolute",
+        "warehouse_id": 1,
+        "created_at": datetime.now()
+    },
+    {
+        "product_name": "TestProduct2",
+        "product_description": "This the second Product is for testing purposes.",
+        "product_count": 150,
+        "unit_price": 80,
+        "image_url": "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg",
+        "image_url_type": "absolute",
+        "warehouse_id": 2,
+        "created_at": datetime.now()
+    },
+    {
+        "product_name": "TestProduct3",
+        "product_description": "This the third Product is for testing purposes.",
+        "product_count": 200,
+        "unit_price": 100,
+        "image_url": "https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg",
+        "image_url_type": "absolute",
+        "warehouse_id": 1,
+        "created_at": datetime.now()
+    }]
+
+    def create_product_model(product):
+        return models.Product(**product)
+
+    product_map = map(create_product_model, product_data)
+    products = list(product_map)
+
+    session.add_all(products)
+    session.commit()
+    products = session.query(models.Product).all()
+    return products
+
+
 
 
 

@@ -50,6 +50,7 @@ def test_get_manager_by_id(client, test_managers):
     assert manager.manager_email == test_managers[0].manager_email
     assert manager.manager_phone == test_managers[0].manager_phone
 
+
 def test_delete_manager(client, test_managers):
     res = client.delete(f"manager/delete/{test_managers[0].manager_id}")
     assert res.status_code == 204
