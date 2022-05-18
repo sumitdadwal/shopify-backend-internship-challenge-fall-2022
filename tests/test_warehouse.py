@@ -15,16 +15,20 @@ def test_create_warehouse(client, test_warehouses, test_manager, warehouse_name,
     assert res.status_code == 201
 
 def test_if_warehouse_name_is_empty(client):
-    res = client.post("/manager/create", json={"warehouse_name": "", "warehouse_address": "123 tornoto ave", "type": "sports", "manager_id": 1})
+    res = client.post("/warehouse/create", json={"warehouse_name": "", "warehouse_address": "123 tornoto ave", "type": "sports", "manager_id": 1})
     assert res.status_code == 422
 
 def test_if_warehouse_address_is_empty(client):
-    res = client.post("/manager/create", json={"warehouse_name": "London Warehosue", "warehouse_address": "", "type": "sports", "manager_id": 1})
+    res = client.post("/warehouse/create", json={"warehouse_name": "London Warehosue", "warehouse_address": "", "type": "sports", "manager_id": 1})
     assert res.status_code == 422
 
 def test_if_warehouse_type_is_empty(client):
-    res = client.post("/manager/create", json={"warehouse_name": "London Warehouse", "warehouse_address": "123 tornoto ave", "type": "", "manager_id": 1})
+    res = client.post("/warehouse/create", json={"warehouse_name": "London Warehouse", "warehouse_address": "123 tornoto ave", "type": "", "manager_id": 1})
     assert res.status_code == 422
+
+def test_if_create_warehouse_with_manager_id_0(client):
+    res = client.post("/warehouse/create", json={"warehouse_name": "London Warehouse", "warehouse_address": "123 tornoto ave", "type": "Tech", "manager_id": 0})
+    assert res.status_code == 400
     
 
 def test_get_all_warehouses(client, test_warehouses):
@@ -40,6 +44,10 @@ def test_get_warehouse_by_id(client, test_warehouses):
 def test_get_warehouse_with_non_exist_id(client, test_warehouses):
     res = client.get('/warehouse/8888')
     assert res.status_code == 404
+
+def test_get_all_warehouses_with_searchbars(client):
+    res = client.get("/warehouse/all?search_name=xscd&search_type=xsadv&search_address=cdsf&search_by_manager_id=5")
+    assert res.status_code == 200
 
 def test_delete_warehouse(client, test_warehouses):
     res = client.delete(f'warehouse/delete/2')

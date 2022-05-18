@@ -77,6 +77,7 @@ def test_get_product_by_id_non_exist(client, test_products):
 def test_get_product_by_warehouse_id(client, test_products):
     res = client.get(f"/product/{test_products[0].warehouse_id}")
     product = schemas.ProductDisplay(**res.json())
+    assert res.status_code == 200
     assert product.product_id == test_products[0].product_id
     assert product.product_name == test_products[0].product_name
     assert product.product_description == test_products[0].product_description
@@ -86,6 +87,10 @@ def test_get_product_by_warehouse_id(client, test_products):
     assert product.image_url_type == test_products[0].image_url_type
     assert product.warehouse_id == test_products[0].warehouse_id
     assert product.warehouse == test_products[0].warehouse 
+
+def test_get_product_by_warehouse_id_non_exist(client):
+    res = client.get(f'/product/88888')
+    assert res.status_code == 404
 
 
 def test_get_all_products_with_limit(client):

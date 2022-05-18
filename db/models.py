@@ -1,3 +1,4 @@
+from email.policy import default
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.expression import null, text
 from sqlalchemy.sql.schema import ForeignKey
@@ -43,6 +44,6 @@ class Manager(Base):
     last_name = Column(String, nullable=False)
     manager_email = Column(String, unique=True, nullable=False)
     manager_phone = Column(Integer, nullable=False)
-    created_at = Column(DateTime, )
+    created_at = Column(DateTime)
     
     warehouses = relationship('Warehouse', back_populates='manager')

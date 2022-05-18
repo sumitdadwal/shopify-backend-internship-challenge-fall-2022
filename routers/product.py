@@ -61,8 +61,7 @@ def get_product_by_id(id: int, db: Session = Depends(get_db)):
 def get_product_by_warehouse_id(warehouse_id: int, db: Session = Depends(get_db)):
     product = db.query(Product).filter(Product.warehouse_id == warehouse_id).all()
     if not product:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, details=f'Product with Warehouse ID {warehouse_id} does not exist.')
-    
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Product with Warehouse ID {warehouse_id} does not exist.')
     return product
 
 

@@ -55,6 +55,8 @@ def delete_manager(id: int, db: Session = Depends(get_db)):
 
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
+
+
 @router.put('/update/{id}', response_model=schemas.ManagerDisplay)
 def update_manager(id: int, request: schemas.ManagerBase, db: Session = Depends(get_db)):
     manager = db.query(Manager).filter(Manager.manager_id == id)
