@@ -1,6 +1,6 @@
 from datetime import datetime
 import json
-from routers import schemas
+from app.routers import schemas
 import pytest
 
 

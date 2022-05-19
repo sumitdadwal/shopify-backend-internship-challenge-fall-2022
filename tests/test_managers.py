@@ -1,5 +1,5 @@
 from datetime import datetime
-from routers import schemas
+from app.routers import schemas
 import pytest
 
 

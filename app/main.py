@@ -1,7 +1,7 @@
 from fastapi import FastAPI
-from db import models
-from db.database import engine
-from routers import warehouse, product, manager
+from .db import models
+from .db.database import engine
+from .routers import warehouse, product, manager
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 

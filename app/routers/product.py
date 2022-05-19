@@ -1,10 +1,10 @@
 from fastapi.exceptions import HTTPException
 from fastapi import APIRouter, Depends, status, UploadFile, File, Response
-from routers import schemas
+from ..routers import schemas
 from sqlalchemy.orm.session import Session
-from db.database import get_db
+from ..db.database import get_db
 from typing import List, Optional
-from db.models import Product
+from ..db.models import Product
 import string
 import random
 import shutil

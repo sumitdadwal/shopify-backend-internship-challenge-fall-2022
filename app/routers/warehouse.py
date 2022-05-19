@@ -1,9 +1,9 @@
-from db.models import Manager
+from app.db.models import Manager
 from fastapi import APIRouter, Depends, status, HTTPException
-from routers.schemas import WarehouseBase, WarehouseDisplay
+from ..routers.schemas import WarehouseBase, WarehouseDisplay
 from sqlalchemy.orm.session import Session
-from db.database import get_db
-from db.models import Warehouse
+from ..db.database import get_db
+from ..db.models import Warehouse
 from typing import List, Optional
 import datetime
 

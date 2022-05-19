@@ -1,7 +1,7 @@
 from itertools import product
 import json
 from math import prod
-from routers import schemas
+from app.routers import schemas
 import pytest
 
 from tests.conftest import test_managers
