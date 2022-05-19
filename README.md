@@ -19,14 +19,14 @@ The db folder contains `database.py` where we conntect to our database and `mode
 Then we have routers folder in which we have `products.py` where all the endpoints for productsare define, `warehouses.py` where all the endpoints for warehouses are defined
 and `manager.py` where all the endpoints for managers are defined. We also have `schemas.py` in routers folder which is used to validate data we receive as well as to reformat the data that we want to send to the client/browser.
 
-<h2>Running the APplication Locally</h2>
+<h2>Running the Application Locally</h2>
 Now that we have a good understading of the project lets run it in your local machine by following the commands below:
 
 First you need to have Python installed in your machine - https://www.python.org/downloads/
 
 1. git clone https://github.com/sumitdadwal/shopify-backend-internship-challenge-fall-2022
 2. cd shopify-backend-internship-challenge-fall-2022
-3. python -m venv env (to create virtual envvironment)
+3. python -m venv env (to create virtual environment)
 4. env\scripts\activate (to activate virtual environement)
 5. pip install -r requirements.txt (to install all the packahes)
 6. uvicorn app.main:app --reload (to run the ap in `localhost`)
