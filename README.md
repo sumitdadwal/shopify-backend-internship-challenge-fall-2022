@@ -5,9 +5,9 @@
 This is a FastAPI application created for Shopify's Fall 2022 Backend Developer Intern Challenge. It is backend server
 for an online Product Inventory Application. Lets start off with some basic details about the project.
 
-<b>Replit web app</b> - https://shopify-backend-internship-challenge-fall-2022.sumitdadwal1.repl.co/docs
+<b>Replit web app</b> - https://shopify-backend-internship-challenge-fall-4.sumitdadwal1.repl.co/docs
 
-<b>Replit code</b> - https://replit.com/@sumitdadwal1/shopify-backend-internship-challenge-fall-2022?v=1<b>
+<b>Replit code</b> - https://replit.com/@sumitdadwal1/shopify-backend-internship-challenge-fall-4?v=1<b>
 
 <h2>Project Structure</h2>
 

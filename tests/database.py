@@ -3,8 +3,8 @@ from app.main import app
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
-from db.database import get_db
-from db.database import Base
+from app.db.database import get_db
+from app.db.database import Base
 import pytest
 
 SQLALCHEMY_DATABASE_URL = 'sqlite:///.shopify_api_test.db'
