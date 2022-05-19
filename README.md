@@ -5,9 +5,9 @@
 This is a FastAPI application created for Shopify's Fall 2022 Backend Developer Intern Challenge. It is backend server
 for an online Product Inventory Application. Lets start off with some basic details about the project.
 
-<b>Replit web app</b> - https://shopify-backend-internship-challenge-fall-4.sumitdadwal1.repl.co/docs
+<b>Replit web app</b> - https://shopify-backend-challenge-2022.sumitdadwal1.repl.co/
 
-<b>Replit code</b> - https://replit.com/@sumitdadwal1/shopify-backend-internship-challenge-fall-4?v=1<b>
+<b>Replit code</b> - https://replit.com/@sumitdadwal1/Shopify-Backend-Challenge-2022?v=1#README.md<b>
 
 <h2>Project Structure</h2>
 
@@ -18,6 +18,11 @@ The db folder contains `database.py` where we conntect to our database and `mode
 
 Then we have routers folder in which we have `products.py` where all the endpoints for productsare define, `warehouses.py` where all the endpoints for warehouses are defined
 and `manager.py` where all the endpoints for managers are defined. We also have `schemas.py` in routers folder which is used to validate data we receive as well as to reformat the data that we want to send to the client/browser.
+
+Normally I would create `.env` for things like database stuff but to keep things simple I am leaving them hardcoded.
+
+the flow I ws thinking for the app was:
+
 
 <h2>Running the Application Locally</h2>
 Now that we have a good understading of the project lets run it in your local machine by following the commands below:
@@ -102,9 +107,13 @@ Now that we have managers. Lets create warehouses than assign them these manager
 Used to create new Warehouses.
 
 Request Body:
+
+
 ![request body warehouse](https://user-images.githubusercontent.com/84678969/169152749-2e39d9dc-1df0-49b0-8df2-36fbed5a7527.jpg)
 
 Response Body: 
+
+
 
 ![createwarehouse](https://user-images.githubusercontent.com/84678969/169152825-2402e751-afe3-4fd5-89b5-49502b9cd5ea.jpg)
 
